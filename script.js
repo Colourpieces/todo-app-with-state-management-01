@@ -19,10 +19,8 @@ function renderToDos() {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
 
-    //
+    //Referenz auf toDoElement im neuen Attribut toDoObj speichern
     toDoLi.toDoObj = toDoElement;
-    //console.log("toDoElement:" + toDoElement + ": " + toDoElement.done);
-    console.log("Element", toDoElement);
 
     //Inhalte zuweisen
     checkbox.checked = toDoElement.done;
@@ -39,6 +37,7 @@ function renderToDos() {
 
 renderToDos();
 
+//Status ToDos im State aktualisieren (erledigt/unerledigt)
 const toDoList = document.querySelector("#list");
 toDoList.addEventListener("change", (e) => {
   const checkbox = e.target;
@@ -46,9 +45,4 @@ toDoList.addEventListener("change", (e) => {
   const todo = liElement.toDoObj;
 
   todo.done = checkbox.checked;
-  //console.log(state.todos);
-  //console.log("checkbox.checked: " + checkbox.checked);
-
-  //console.log(e.target.parentElement);
-  console.log(e.target.value);
 });
