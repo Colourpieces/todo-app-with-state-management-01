@@ -6,14 +6,14 @@ Implement a basic Todo App with state management.
 
 ## Requirments
 
-- [ ] Add an input field and a button that is used to add new Todos
-  - [ ] The any trailing spaces should be trimmed from the todo input
-- [ ] Each todo has a description and a done property
-- [ ] Add an ID property to each todo item for easier identification of each todo item
-  - [ ] Create the ID youself (i.e. with a counter variable or generate an id)
-- [ ] Display a list of all todos
-- [ ] Use a checkbox to show if a todo is done or open
-- [ ] When the checkbox of a todo is changed update the state of the corresponding todo
+- [x] Add an input field and a button that is used to add new Todos
+  - [x] The any trailing spaces should be trimmed from the todo input
+- [x] Each todo has a description and a done property
+- [x] Add an ID property to each todo item for easier identification of each todo item
+  - [x] Create the ID youself (i.e. with a counter variable or generate an id)
+- [x] Display a list of all todos
+- [x] Use a checkbox to show if a todo is done or open
+- [x] When the checkbox of a todo is changed update the state of the corresponding todo
 - [ ] Do not allow duplicate todo descriptions (i.e. two todos with the description "Learn JavaScript")
   - [ ] The duplicate check case-insensitive
 

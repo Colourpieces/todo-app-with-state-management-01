@@ -1,9 +1,10 @@
 const state = {
+  idCounter: 0,
   todos: [
-    { description: "Aufgabe 1", done: false },
-    { description: "Aufgabe 2", done: true },
-    { description: "Aufgabe 3", done: false },
-    { description: "Aufgabe 4", done: false },
+    { id: 1, description: "Aufgabe 1", done: false },
+    { id: 2, description: "Aufgabe 2", done: true },
+    { id: 3, description: "Aufgabe 3", done: false },
+    { id: 4, description: "Aufgabe 4", done: false },
   ],
 };
 
@@ -45,4 +46,22 @@ toDoList.addEventListener("change", (e) => {
   const todo = liElement.toDoObj;
 
   todo.done = checkbox.checked;
+});
+
+//toDo hinzufügen
+const InputNewToDo = document.querySelector("#input-new-todo");
+const buttonAddToDo = document.querySelector("#button-add-todo");
+buttonAddToDo.addEventListener("click", () => {
+  const newToDo = {};
+  if (state.idCounter === 0) {
+    state.todos = [];
+  }
+  newToDo.id = state.idCounter;
+  state.idCounter += 1;
+  newToDo.description = InputNewToDo.value.trimEnd();
+  newToDo.done = false;
+  state.todos.push(newToDo);
+  console.log(state.todos);
+  renderToDos();
+  InputNewToDo.value = "";
 });
