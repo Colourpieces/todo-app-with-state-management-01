@@ -1,4 +1,4 @@
-const state = {
+let state = {
   idCounter: 0,
   todos: [
     { id: 1, description: "Aufgabe 1", done: false },
@@ -40,6 +40,7 @@ function renderToDos() {
   });
 }
 
+getState();
 renderToDos();
 
 //Status ToDos im State aktualisieren (erledigt/unerledigt)
@@ -94,6 +95,7 @@ function addNewToDo() {
       InputNewToDo.value = "";
     }
   }
+  saveState();
 }
 
 function duplicateCheck(newToDoDscr) {
@@ -112,6 +114,7 @@ const buttonDeleteAll = document.querySelector("#button-delete-all");
 buttonDeleteAll.addEventListener("click", () => {
   idCounter = 0;
   state.todos = [];
+  saveState();
   renderToDos();
 });
 
@@ -119,5 +122,21 @@ buttonDeleteAll.addEventListener("click", () => {
 const buttonDeleteDone = document.querySelector("#button-delete-done");
 buttonDeleteDone.addEventListener("click", () => {
   state.todos = state.todos.filter((toDoElement) => toDoElement.done === false);
+  saveState();
   renderToDos();
 });
+
+function saveState() {
+  window.localStorage.setItem("myState", JSON.stringify(state));
+}
+
+function getState() {
+  const myState = window.localStorage.getItem("myState");
+
+  if (myState === null) {
+    return;
+  } else {
+    state = JSON.parse(myState);
+    console.log("get state: ", JSON.parse(myState).todos);
+  }
+}
