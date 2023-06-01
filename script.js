@@ -13,6 +13,10 @@ function renderToDos() {
 
   toDoList.innerHTML = ""; //Liste leeren
 
+  if (state.todos.length === 0) {
+    toDoList.innerHTML = "Du hast derzeit keine Aufgaben. Genieß die Sonne =)";
+  }
+
   //toDos einzeln ausgeben
   state.todos.forEach((toDoElement) => {
     //HTML Elemente erstellen
@@ -49,34 +53,48 @@ toDoList.addEventListener("change", (e) => {
 });
 
 //toDo hinzufügen
-const InputNewToDo = document.querySelector("#input-new-todo");
 const buttonAddToDo = document.querySelector("#button-add-todo");
 buttonAddToDo.addEventListener("click", () => {
-  const newToDo = {};
-  //Prüfung: erstes toDo, dass der Nutzer hinzufügt?
-  if (state.idCounter === 0) {
-    state.todos = [];
-  }
-
-  //neues toDoObjekt erstellen
-  newToDo.id = state.idCounter;
-  newToDo.description = InputNewToDo.value.trimEnd();
-  newToDo.done = false;
-
-  const isDuplicate = duplicateCheck(newToDo.description);
-  if (isDuplicate === false) {
-    //toDo zum State hinzufügen
-    state.todos.push(newToDo);
-    state.idCounter += 1;
-
-    //Ausgabe neu rendern
-    renderToDos();
-    InputNewToDo.value = "";
-  } else {
-    alert("Diese Aufgabe hast du bereits auf deiner Liste eingetragen!");
-    InputNewToDo.value = "";
+  addNewToDo();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.code === "Enter") {
+    addNewToDo();
   }
 });
+
+function addNewToDo() {
+  const InputNewToDo = document.querySelector("#input-new-todo");
+  //Prüfung: ToDo nicht leer?
+  if (InputNewToDo.value.trimEnd().length === 0) {
+    alert("Bitte schreibe eine Aufgabe auf, die du erledigen möchtest");
+  } else {
+    const newToDo = {};
+    //Prüfung: erstes toDo, dass der Nutzer hinzufügt?
+    if (state.idCounter === 0) {
+      state.todos = [];
+    }
+
+    //neues toDoObjekt erstellen
+    newToDo.id = state.idCounter;
+    newToDo.description = InputNewToDo.value.trimEnd();
+    newToDo.done = false;
+
+    const isDuplicate = duplicateCheck(newToDo.description);
+    if (isDuplicate === false) {
+      //toDo zum State hinzufügen
+      state.todos.push(newToDo);
+      state.idCounter += 1;
+
+      //Ausgabe neu rendern
+      renderToDos();
+      InputNewToDo.value = "";
+    } else {
+      alert("Diese Aufgabe hast du bereits auf deiner Liste eingetragen!");
+      InputNewToDo.value = "";
+    }
+  }
+}
 
 function duplicateCheck(newToDoDscr) {
   let isDuplicate = false;
@@ -88,3 +106,18 @@ function duplicateCheck(newToDoDscr) {
   });
   return isDuplicate;
 }
+
+//alle to Do löschen
+const buttonDeleteAll = document.querySelector("#button-delete-all");
+buttonDeleteAll.addEventListener("click", () => {
+  idCounter = 0;
+  state.todos = [];
+  renderToDos();
+});
+
+//erledigte löschen
+const buttonDeleteDone = document.querySelector("#button-delete-done");
+buttonDeleteDone.addEventListener("click", () => {
+  state.todos = state.todos.filter((toDoElement) => toDoElement.done === false);
+  renderToDos();
+});
