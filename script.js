@@ -53,15 +53,40 @@ const InputNewToDo = document.querySelector("#input-new-todo");
 const buttonAddToDo = document.querySelector("#button-add-todo");
 buttonAddToDo.addEventListener("click", () => {
   const newToDo = {};
+  //Prüfung: erstes toDo, dass der Nutzer hinzufügt?
   if (state.idCounter === 0) {
     state.todos = [];
   }
+
+  //neues toDoObjekt erstellen
   newToDo.id = state.idCounter;
-  state.idCounter += 1;
   newToDo.description = InputNewToDo.value.trimEnd();
   newToDo.done = false;
-  state.todos.push(newToDo);
-  console.log(state.todos);
-  renderToDos();
-  InputNewToDo.value = "";
+
+  const isDuplicate = duplicateCheck(newToDo.description);
+  if (isDuplicate === false) {
+    //toDo zum State hinzufügen
+    state.todos.push(newToDo);
+    state.idCounter += 1;
+
+    //Ausgabe neu rendern
+    console.log(state.todos);
+    renderToDos();
+    InputNewToDo.value = "";
+  } else {
+    alert("Diese Aufgabe hast du bereits auf deiner Liste eingetragen!");
+  }
 });
+
+function duplicateCheck(newToDoDscr) {
+  let isDuplicate = false;
+
+  state.todos.forEach((toDoElement) => {
+    console.log(toDoElement);
+    if (toDoElement.description.toLowerCase() === newToDoDscr.toLowerCase()) {
+      isDuplicate = true;
+    }
+    console.log("isDuplicate: ", isDuplicate);
+  });
+  return isDuplicate;
+}
