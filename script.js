@@ -70,11 +70,11 @@ buttonAddToDo.addEventListener("click", () => {
     state.idCounter += 1;
 
     //Ausgabe neu rendern
-    console.log(state.todos);
     renderToDos();
     InputNewToDo.value = "";
   } else {
     alert("Diese Aufgabe hast du bereits auf deiner Liste eingetragen!");
+    InputNewToDo.value = "";
   }
 });
 
@@ -82,11 +82,9 @@ function duplicateCheck(newToDoDscr) {
   let isDuplicate = false;
 
   state.todos.forEach((toDoElement) => {
-    console.log(toDoElement);
     if (toDoElement.description.toLowerCase() === newToDoDscr.toLowerCase()) {
       isDuplicate = true;
     }
-    console.log("isDuplicate: ", isDuplicate);
   });
   return isDuplicate;
 }
