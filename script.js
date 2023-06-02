@@ -13,7 +13,7 @@ function renderToDos() {
 
   toDoList.innerHTML = ""; //Liste leeren
 
-  if (state.todos.length === 0) {
+  if (state.todos.length === 0 && state.idCounter > 0) {
     toDoList.innerHTML = "Du hast derzeit keine Aufgaben. Genieß die Sonne =)";
   }
 
@@ -112,11 +112,15 @@ function duplicateCheck(newToDoDscr) {
 //alle to Do löschen
 const buttonDeleteAll = document.querySelector("#button-delete-all");
 buttonDeleteAll.addEventListener("click", () => {
-  idCounter = 0;
+  deleteAll();
+});
+
+function deleteAll() {
+  //state.idCounter = 0;
   state.todos = [];
   saveState();
   renderToDos();
-});
+}
 
 //erledigte löschen
 const buttonDeleteDone = document.querySelector("#button-delete-done");
@@ -140,3 +144,18 @@ function getState() {
     console.log("get state: ", JSON.parse(myState).todos);
   }
 }
+
+//App zurücksetzen
+const buttonUnsetApp = document.querySelector("#button-unset-app");
+buttonUnsetApp.addEventListener("click", () => {
+  deleteAll();
+  window.localStorage.removeItem("myState");
+  state.idCounter = 0;
+  state.todos = [
+    { id: 1, description: "Aufgabe 1", done: false },
+    { id: 2, description: "Aufgabe 2", done: true },
+    { id: 3, description: "Aufgabe 3", done: false },
+    { id: 4, description: "Aufgabe 4", done: false },
+  ];
+  renderToDos();
+});
