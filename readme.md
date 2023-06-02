@@ -14,10 +14,10 @@ Implement a basic Todo App with state management.
 - [x] Display a list of all todos
 - [x] Use a checkbox to show if a todo is done or open
 - [x] When the checkbox of a todo is changed update the state of the corresponding todo
-- [ ] Do not allow duplicate todo descriptions (i.e. two todos with the description "Learn JavaScript")
-  - [ ] The duplicate check case-insensitive
+- [x] Do not allow duplicate todo descriptions (i.e. two todos with the description "Learn JavaScript")
+  - [x] The duplicate check case-insensitive
 
 ## Bonus Requirements
 
-- [ ] Add a "Remove Done Todos" button which will remove all done todos from the state
-- [ ] Use the local storage to load and save the current state of the app
+- [x] Add a "Remove Done Todos" button which will remove all done todos from the state
+- [x] Use the local storage to load and save the current state of the app
